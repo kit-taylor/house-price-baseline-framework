@@ -40,8 +40,11 @@ from sklearn.metrics import mean_absolute_error
 # ----------------------------------------------------
 df['bedroom_to_area_ratio'] = df['bedrooms'] / df['area']
 
-X = df.drop(columns=['price'])
-y = np.log1p(df['price']) # Handling right-skewed target
+# 1. Separate your specific features (X) and target (y) explicitly
+feature_cols = ['area', 'bedrooms', 'bathrooms', 'stories', 'mainroad', 'guestroom', 'bedroom_to_area_ratio']
+
+X = df[feature_cols]
+y = np.log1p(df['price'])  # Handling right-skewed target
 
 # ----------------------------------------------------
 # 2. Scaling & Validation Split
