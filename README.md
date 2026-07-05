@@ -64,9 +64,10 @@ model.fit(X_train, y_train)
 # ----------------------------------------------------
 log_preds = model.predict(X_test)
 
-# CRITICAL: Reverse log space back to actual currency units
+# CRITICAL: Reverse log space back to actual currency units (np.sqrt if np.square used) 
 real_preds = np.expm1(log_preds)
 real_actuals = np.expm1(y_test)
+
 
 # Business Metric: Mean Absolute Error (MAE)
 mae = mean_absolute_error(real_actuals, real_preds)
