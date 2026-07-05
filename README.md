@@ -40,11 +40,17 @@ from sklearn.metrics import mean_absolute_error
 # ----------------------------------------------------
 df['bedroom_to_area_ratio'] = df['bedrooms'] / df['area']
 
-# 1. Separate your specific features (X) and target (y) explicitly
-feature_cols = ['area', 'bedrooms', 'bathrooms', 'stories', 'mainroad', 'guestroom', 'bedroom_to_area_ratio']
+# 1. Identify your columns explicitly by type
+numeric_cols = ['area', 'bedrooms', 'bathrooms', 'stories', 'bedroom_to_area_ratio']
+categorical_cols = ['mainroad', 'guestroom', 'furnishingstatus']
 
-X = df[feature_cols]
-y = np.log1p(df['price'])  # Handling right-skewed target
+# 2. Extract your features from the dataframe
+X_raw = df[numeric_cols + categorical_cols]
+y = np.log1p(df['price'])
+
+# 3. One-Hot Encode the categorical features
+# drop_first=True prevents the "Dummy Variable Trap" (multicollinearity)
+X = pd.get_dummies(X_raw, columns=categorical_cols, drop_first=True, dtype=int)
 
 # ----------------------------------------------------
 # 2. Scaling & Validation Split
