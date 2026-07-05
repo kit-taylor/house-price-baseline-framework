@@ -75,11 +75,11 @@ model.fit(X_train, y_train)
 # 4. Inverse Transformation & Evaluation
 # ----------------------------------------------------
 # Get raw predictions from the model (still in transformed space)
-transformed_preds = model.predict(X_test)
+log_preds = model.predict(X_test)
 
 # Reverse the transformation back to actual currency units 
-# [NOTE: Swap out np.expm1() for np.sqrt() or remove entirely depending on your target treatment]
-y_pred = np.expm1(transformed_preds)  
+# [NOTE: Swap out np.expm1() for np.sqrt() or remove entirely 
+y_pred = np.expm1(log_preds)  
 y_true = np.expm1(y_test)             
 
 # Calculate Business Metric (MAE) in raw pounds
