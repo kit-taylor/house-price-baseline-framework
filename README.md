@@ -18,7 +18,10 @@ A production-ready reference architecture for training an end-to-end baseline Ge
   * *Right-Skewed (Huge Max):* Use `np.log1p()` to compress the tail and satisfy normal error assumptions.
   * *Left-Skewed (Tiny Min):* Use `np.square()` to expand the tail.
   * *Symmetric/Normal:* Leave target raw.
-
+* **Qualitative Encoding & Domain Filtering:** 
+  * Convert valid categorical text variables (e.g., `furnishingstatus`) into binary metrics using One-Hot Encoding (`pd.get_dummies(drop_first=True)`), bypassing the scaler for these 0/1 indicator flags.
+  * Exclude high-cardinality columns with severe class imbalance 
+    
 ### 3. Validation Strategy & Modeling
 * **Leakage Prevention:** Split data into an 80% training set and a 20% unseen testing set *after* feature creation but *before* fitting models.
 * **Algorithm:** Baseline Parametric Linear Regression (GLM).
