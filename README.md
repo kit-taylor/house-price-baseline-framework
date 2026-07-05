@@ -4,7 +4,7 @@ A production-ready reference architecture for training an end-to-end baseline Ge
 
 ---
 
-## 🚀 The Core Workflow Blueprint
+## The Core Workflow
 
 ### 1. Data Identification & Discovery
 * **Evaluation Matrix:** Check `df.info()`, `df.describe()`, and `df.isnull().sum()`.
@@ -28,7 +28,7 @@ A production-ready reference architecture for training an end-to-end baseline Ge
 
 ---
 
-## 💻 Baseline Reference Implementation
+## Baseline Reference Implementation
 
 ```python
 import numpy as np
