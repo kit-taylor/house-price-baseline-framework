@@ -56,23 +56,31 @@ y = np.log1p(df['price'])
 X = pd.get_dummies(X_raw, columns=categorical_cols, drop_first=True, dtype=int)
 
 # ----------------------------------------------------
-# 2. Scaling & Validation Split
+# 2. Validation Split (Split FIRST to prevent leakage)
 # ----------------------------------------------------
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
-
 X_train, X_test, y_train, y_test = train_test_split(
-    X_scaled, y, test_size=0.2, random_state=1
+    X, y, test_size=0.2, random_state=1
 )
 
 # ----------------------------------------------------
-# 3. Model Training
+# 3. Magnitude Alignment (Scale ONLY continuous numeric features)
+# ----------------------------------------------------
+scaler = StandardScaler()
+
+# Fit and transform only on the training numeric columns
+X_train[numeric_cols] = scaler.fit_transform(X_train[numeric_cols])
+
+# Transform only on the test numeric columns using training parameters
+X_test[numeric_cols] = scaler.transform(X_test[numeric_cols])
+
+# ----------------------------------------------------
+# 4. Model Training
 # ----------------------------------------------------
 model = LinearRegression()
 model.fit(X_train, y_train)
 
 # ----------------------------------------------------
-# 4. Inverse Transformation & Evaluation
+# 5. Inverse Transformation & Evaluation
 # ----------------------------------------------------
 # Get raw predictions from the model (still in transformed space)
 log_preds = model.predict(X_test)
