@@ -52,7 +52,7 @@ df['column_name'] = df['column_name'].fillna(df['column_name'].mean())
 df['status_col'] = df['status_col'].fillna('Unknown')
 df['target_col'] = df['target_col'].fillna(0)
 
-# Fill with a specific category string
+# feature creation
 
 df['bedroom_to_area_ratio'] = df['bedrooms'] / df['area']
 
