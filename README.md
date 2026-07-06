@@ -41,6 +41,19 @@ from sklearn.metrics import mean_absolute_error
 # ----------------------------------------------------
 # 1. Feature Engineering & Target Separation
 # ----------------------------------------------------
+# get information about the dataframe
+
+df.info()
+df.describe()
+df.isnull().sum().
+
+# to replace columns with null values
+df['column_name'] = df['column_name'].fillna(df['column_name'].mean())
+df['status_col'] = df['status_col'].fillna('Unknown')
+df['target_col'] = df['target_col'].fillna(0)
+
+# Fill with a specific category string
+
 df['bedroom_to_area_ratio'] = df['bedrooms'] / df['area']
 
 # 1. Identify your columns explicitly by type
